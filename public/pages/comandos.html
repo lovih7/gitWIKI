@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comandos - gitWIKI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.4/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Goblin+One&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <script>
+    // Pequeno hookup para o botão de limpar pesquisa criado no HTML acima
+    document.addEventListener('DOMContentLoaded', () => {
+      const clearBtn = document.getElementById('commands-clear-btn');
+      const searchInput = document.getElementById('commands-search');
+      if (clearBtn && searchInput) {
+        clearBtn.addEventListener('click', () => {
+          searchInput.value = '';
+          // dispara input para o scripts aplicarem filtro (commands.js conecta-se ao input)
+          searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+          searchInput.focus();
+        });
+      }
+
+      // vincula os botões de filtro já renderizados no HTML com o comportamento do script
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cat = btn.getAttribute('data-cat') || '';
+          // limpa input e dispara evento de filtro via dispatch para compatibilidade com commands.js
+          const input = document.getElementById('commands-search');
+          if (input) input.value = '';
+          // commands.js implementa applyFilter internamente, mas não expõe globalmente.
+          // Simples abordagem: simular clique nos botões que o script cria (se existirem);
+          // caso o script não exponha, refazemos um fetch e filtramos aqui manualmente:
+          const container = document.getElementById('commands-container');
+          fetch('../assets/data/commands.json')
+            .then(r => r.json())
+            .then(list => {
+              const filtered = cat ? list.filter(c => (c.category||'').toLowerCase() === cat) : list;
+              container.innerHTML = '';
+              if (filtered.length === 0) {
+                container.appendChild(Object.assign(document.createElement('div'), { className: 'col-12 text-muted', textContent: 'Nenhum comando encontrado.' }));
+              } else {
+                filtered.forEach(c => container.appendChild(createCommandCard(c, false)));
+              }
+            })
+            .catch(() => {
+              container.innerHTML = '<div class="col-12 text-danger">Erro ao carregar comandos.</div>';
+            });
+        });
+      });
+    });
+    </script>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="../index.html">WIKI</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                <ul class="navbar-nav align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./sobre.html">sobre</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="./comandos.html">comandos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#contato">contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main style="padding-top:120px;">
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Todos os comandos</h2>
+                    <p class="text-muted">Explore todos os comandos disponíveis — filtre por nível ou pesquise por termo específico.</p>
+                </div>
+
+                <div id="commands-controls" class="mb-4">
+                    <div class="commands-search-wrapper">
+                        <label for="commands-search" class="commands-search-label">Pesquisar comandos</label>
+                        <div class="input-group commands-search-group">
+                            <span class="input-group-text search-icon" id="search-addon"><i class="bi bi-search"></i></span>
+                            <input id="commands-search" type="search" class="form-control commands-search-input" placeholder="Procure por comando, descrição ou exemplo…" aria-label="Pesquisar comandos" aria-describedby="search-addon">
+                            <button type="button" id="commands-clear-btn" class="btn btn-link text-decoration-none clear-search" aria-label="Limpar pesquisa"><i class="bi bi-x-lg"></i></button>
+                        </div>
+                    </div>
+                    <div class="mt-3 d-flex gap-2 align-items-center flex-wrap">
+                        <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="">Todos</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="basico">Básico</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="intermediario">Intermediário</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="avancado">Avançado</button>
+                    </div>
+                </div>
+                <div id="commands-container" class="row g-4">
+                    <!-- script -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="logo">WIKI</h5>
+                    <p>Aprenda Git de forma simples e prática. Todos os comandos essenciais em um só lugar.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links Rápidos</h5>
+                    <ul>
+                        <li><a href="../index.html">Início</a></li>
+                        <li><a href="./sobre.html">Sobre</a></li>
+                        <li><a href="./comandos.html">Comandos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Recursos</h5>
+                    <ul>
+                        <li><a href="https://git-scm.com/">Site Git</a></li>
+                        <li><a href="https://git-scm.com/docs">Documentação Git</a></li>
+                        <li><a href="https://www.youtube.com/live/xEKo29OWILE?si=rjnZ4RK4EP9YdtL8">Tutoriais</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/commands.js"></script>
+
+</body>
+</html>

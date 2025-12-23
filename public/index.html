@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gitWIKI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.4/font/bootstrap-icons.css" rel="stylesheet">    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Goblin+One&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../public/assets/css/style.css">
+</head>
+<body>
+
+    <!--Site Feito usando BOOTSTRAP-->
+
+    <!-- Primeira seção -->
+    <!-- Barra de Navegaçao-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="../public/index.html">WIKI</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                <ul class="navbar-nav align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link active" href="../public/index.html">inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../public/pages/sobre.html">sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../public/pages/comandos.html">comandos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../public/index.html#contato">contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Grid -->
+    <section id="hero" class="hero d-flex align-items-center min-vh-100">
+        <div class="container">
+            <div class="row align-items-center gy-4">
+                <div class="col-lg-6">
+                    <div class="hero-text">
+                        <h5>Domine o controle de versões</h5>
+                        <h4>Aprenda Git do zero ao essencial</h4>
+                        <h1>Comandos Git na prática</h1>
+                        <p>Entenda como salvar, versionar e colaborar em projetos de forma profissional. Aprenda os principais comandos Git usados no dia a dia por desenvolvedores e ganhe mais segurança ao programar.</p>
+
+                        <a href="#comandos" class="btn btn-warning btn-lg me-2"><i class="bi bi-play-fill me-1"></i>Começar agora</a>
+                        <a href="#sobre" class="btn btn-outline-light btn-lg ms-2"><i class="bi bi-info-circle-fill me-1"></i>Saiba mais</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="hero-img">
+                        <img class="img-fluid" src="../public/assets/img/img1.png" alt="Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Segunda seção - /SOBRE/ -->
+    <section id="sobre" class="about-section d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center gy-4">
+                <div class="col-lg-6 order-lg-2">
+                    <div class="about-text">
+                        <h5>Por que aprender Git?</h5>
+                        <h4>A ferramenta essencial para desenvolvedores</h4>
+                        <h1>Colabore com confiança</h1>
+                        <p>Git é o sistema de controle de versão mais usado no mundo. Com ele, você pode trabalhar em equipe sem conflitos, reverter mudanças quando necessário e manter um histórico completo do seu projeto.</p>
+                        <p>Seja você iniciante ou experiente, dominar Git é fundamental para trabalhar em qualquer projeto de desenvolvimento moderno. Empresas de todos os tamanhos utilizam Git diariamente.</p>
+                        <a href="#comandos" class="btn btn-warning btn-lg me-2"><i class="bi bi-terminal-fill me-1"></i>Ver comandos</a>
+                        <a href="#contato" class="btn btn-outline-light btn-lg ms-2"><i class="bi bi-envelope-fill me-1"></i>Fale conosco</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1 text-center">
+                    <div class="about-img">
+                        <img class="img-fluid" src="../public/assets/img/img2.png" alt="Ilustraçao GIT">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terçeira seção - /Comandos/ -->
+ <section id="comandos" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Comandos essenciais</h2>
+      <p class="text-muted">
+        Comandos rápidos para começar — copie com um clique e teste no seu terminal.
+      </p>
+    </div>
+    <div id="commands-container" class="row g-4">
+      <!-- Os cards serão inseridos aqui via JavaScript -->
+    </div>
+  </div>
+</section>
+
+    <!-- Footer -->
+    <footer id="contato" class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="logo">GIT wiki</h5>
+                    <p>Aprenda Git de forma simples e prática. Todos os comandos essenciais em um só lugar.</p>
+                    <div class="social-footer mt-3">
+                        <a href="https://www.instagram.com/reel/DNys-P-4sQe/"><i class="bi bi-instagram"></i></a>
+                        <a href="https://youtu.be/WVLhm1AMeYE?si=qEpd_3bRGqsRbVjU"><i class="bi bi-youtube"></i></a>
+                        <a href="https://github.com/git/git"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links Rápidos</h5>
+                    <ul>
+                        <li><a href="#hero">Início</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#comandos">Comandos</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Recursos</h5>
+                    <ul>
+                        <li><a href="https://git-scm.com/">Site Git</a></li>
+                        <li><a href="https://git-scm.com/docs">Documentação Git</a></li>
+                        <li><a href="https://www.youtube.com/live/xEKo29OWILE?si=rjnZ4RK4EP9YdtL8">Tutoriais</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../public/assets/js/main.js"></script>
+    <script src="../public/assets/js/commands.js"></script>
+    <script src="../server.js"></script>
+
+</body>
+</html>
