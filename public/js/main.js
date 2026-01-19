@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Função simples para copiar comando (referenciada no index.html)
-function copyCommand(text) {
+function copyCommand(text, btn) {
     if (!navigator.clipboard) {
         // fallback
         const el = document.createElement('textarea');
@@ -38,12 +38,19 @@ function copyCommand(text) {
         el.select();
         try { document.execCommand('copy'); } catch (err) { /* ignorar */ }
         document.body.removeChild(el);
-        alert('Comando copiado!');
+        // Feedback visual no botão se fornecido
+        if (btn && btn.tagName === 'BUTTON') {
+            const prev = btn.innerHTML;
+            btn.innerHTML = 'Copiado';
+            setTimeout(() => btn.innerHTML = prev, 1000);
+        } else {
+            alert('Comando copiado!');
+        }
         return;
     }
     navigator.clipboard.writeText(text).then(function() {
-        // feedback curto
-        const original = event?.target;
+        // feedback curto - usa o botão passado como parâmetro ou tenta o event.target
+        const original = btn || event?.target;
         // opcional: mudar texto do botão por 1s
         if (original && original.tagName === 'BUTTON') {
             const prev = original.innerHTML;

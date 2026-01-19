@@ -7,53 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.4/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Goblin+One&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
-    <script>
-    // Pequeno hookup para o botão de limpar pesquisa criado no HTML acima
-    document.addEventListener('DOMContentLoaded', () => {
-      const clearBtn = document.getElementById('commands-clear-btn');
-      const searchInput = document.getElementById('commands-search');
-      if (clearBtn && searchInput) {
-        clearBtn.addEventListener('click', () => {
-          searchInput.value = '';
-          // dispara input para o scripts aplicarem filtro (commands.js conecta-se ao input)
-          searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-          searchInput.focus();
-        });
-      }
-
-      // vincula os botões de filtro já renderizados no HTML com o comportamento do script
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const cat = btn.getAttribute('data-cat') || '';
-          // limpa input e dispara evento de filtro via dispatch para compatibilidade com commands.js
-          const input = document.getElementById('commands-search');
-          if (input) input.value = '';
-          // commands.js implementa applyFilter internamente, mas não expõe globalmente.
-          // Simples abordagem: simular clique nos botões que o script cria (se existirem);
-          // caso o script não exponha, refazemos um fetch e filtramos aqui manualmente:
-          const container = document.getElementById('commands-container');
-          fetch('../assets/data/commands.json')
-            .then(r => r.json())
-            .then(list => {
-              const filtered = cat ? list.filter(c => (c.category||'').toLowerCase() === cat) : list;
-              container.innerHTML = '';
-              if (filtered.length === 0) {
-                container.appendChild(Object.assign(document.createElement('div'), { className: 'col-12 text-muted', textContent: 'Nenhum comando encontrado.' }));
-              } else {
-                filtered.forEach(c => container.appendChild(createCommandCard(c, false)));
-              }
-            })
-            .catch(() => {
-              container.innerHTML = '<div class="col-12 text-danger">Erro ao carregar comandos.</div>';
-            });
-        });
-      });
-    });
-    </script>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
         <div class="container">
@@ -90,7 +47,7 @@
                         </div>
                     </div>
                     <div class="mt-3 d-flex gap-2 align-items-center flex-wrap">
-                        <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="">Todos</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary filter-btn active" data-cat="">Todos</button>
                         <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="basico">Básico</button>
                         <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="intermediario">Intermediário</button>
                         <button type="button" class="btn btn-sm btn-outline-secondary filter-btn" data-cat="avancado">Avançado</button>
@@ -132,8 +89,21 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/commands.js"></script>
-
+    <script src="../js/main.js"></script>
+    <script src="../js/commands.js"></script>
+    <script>
+        // Hookup para o botão de limpar pesquisa
+        document.addEventListener('DOMContentLoaded', () => {
+            const clearBtn = document.getElementById('commands-clear-btn');
+            const searchInput = document.getElementById('commands-search');
+            if (clearBtn && searchInput) {
+                clearBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    searchInput.focus();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
